@@ -1,3 +1,5 @@
+// Further comments are in the included header files
+
 #include "utils.h"
 #include "state_machine.h"
 
