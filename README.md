@@ -8,7 +8,9 @@ When brainstorming, one of the many ideas I came up with was inspired by my love
 
 # Design overview
 
-When workshopping the idea, I had to figure out what all would be needed. At the start of the project, I figured that I would essentially only need 4 motors and some way to control them all. I settled on using stepper motors and shift registers.
+When workshopping the idea, I had to figure out what all would be needed. At the start of the project, I figured that I would essentially only need 4 motors and some way to control them all. I settled on using stepper motors and shift registers. The final schematic can be seen below:
+
+![Circuit diagram](./images/circuit_diagram.png)
 
 ## Component choice
 
@@ -53,6 +55,10 @@ My state machine handler was specifically designed to be non-blocking (see https
 My implementation is extensible enough that I would easily be able to drive several more motors if I wanted to. The computation time per loop spent on calculating which coils need to be activated is pretty negligible, so scaling upwards to e.g. controlling 20 steppers at a time pretty much boils down to properly setting up the StepperConfiguration array and then just adjusting the shift register handling code to shift out however many bits are needed. Power's not even that much of an issue, as hardly ever is more than one stepper motor active at a time, and they each draw around 500 mW when active. Most good USB power supplies nowadays can handle 5V at 1A easily, sometimes even to 3A. 
 
 As always, I have gripes with using C/C++ because it's old, fairly unergonomic, and easy to shoot yourself in the foot with. I much prefer languages with a more flexible type system. For instance, using Rust, I could easily model the state machine as a sum type, thereby giving more type safety (e.g. avoiding invalid states) and simplifying the program logic. In practice, since this implementation is fairly straightforward, C/C++ is okay, but in a more complicated situation, with more states and more complicated logic, the state machine would be much harder to debug in C/C++. I am of course biased towards Rust, and I have previously experimented with running Rust on the Arduino platform, but I wanted to make a complete project using C/C++ so that I could better understand it.
+
+# Printed parts
+
+I didn't have too much time to work on this part, so I got only the strictly necessary parts done, that being the barrels with the digits on them. I modeled a 5 cm diameter barrel in Fusion with a cutout matching the contour of the stepper motor's shaft. Then I needed to get the text wrapping around the outside. Fusion didn't have good support for this, so I imported the model into Blender and found out how to do it there. Unfortunately, neither program really does curved text well. In the final model, the embossed text is glitchy. In any case, they're included in the /models/ folder if you want to experiment.
 
 # Limitations
 
